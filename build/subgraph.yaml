@@ -1,0 +1,136 @@
+specVersion: 0.0.2
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: OlympusERC20
+    network: mainnet
+    source:
+      address: "0x21B9b1406c6c351Eba2e1d41cDC5Ddc73211b6a0"
+      abi: OlympusERC20
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - Transfer
+      abis:
+        - name: OlympusERC20
+          file: OlympusERC20\abis\OlympusERC20.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: OlympusERC20\OlympusERC20.wasm
+  - kind: ethereum
+    name: sOlympusERC20V2
+    network: mainnet
+    source:
+      address: "0x637B7f267F6E85cC81cfc86A5ADA89d82a50225E"
+      startBlock: 6575872
+      abi: sOlympusERC20V2
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - LogRebase
+        - LogStakingContractUpdated
+        - LogSupply
+        - OwnershipPulled
+        - OwnershipPushed
+        - Transfer
+      abis:
+        - name: sOlympusERC20V2
+          file: sOlympusERC20V2\abis\sOlympusERC20V2.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: LogRebase(indexed uint256,uint256,uint256)
+          handler: handleLogRebase
+        - event: LogStakingContractUpdated(address)
+          handler: handleLogStakingContractUpdated
+        - event: LogSupply(indexed uint256,uint256,uint256)
+          handler: handleLogSupply
+        - event: OwnershipPulled(indexed address,indexed address)
+          handler: handleOwnershipPulled
+        - event: OwnershipPushed(indexed address,indexed address)
+          handler: handleOwnershipPushed
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: sOlympusERC20V2\sOlympusERC20V2.wasm
+  - kind: ethereum
+    name: OlympusStakingV2
+    network: mainnet
+    source:
+      address: "0x3F58BBAb8265cB4a196e61774fFAc08Fa2429a8C"
+      startBlock: 6615011
+      abi: OlympusStakingV2
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipPulled
+        - OwnershipPushed
+      abis:
+        - name: OlympusStakingV2
+          file: OlympusStakingV2\abis\OlympusStakingV2.json
+        - name: sOlympusERC20V2
+          file: OlympusStakingV2\abis\sOlympusERC20V2.json
+        - name: OlympusERC20
+          file: OlympusStakingV2\abis\OlympusERC20.json
+        - name: CirculatingSupply
+          file: OlympusStakingV2\abis\CirculatingSupply.json
+        - name: BondingCalculator
+          file: OlympusStakingV2\abis\BondingCalculator.json
+        - name: ERC20
+          file: OlympusStakingV2\abis\ERC20.json
+      eventHandlers:
+        - event: OwnershipPulled(indexed address,indexed address)
+          handler: handleOwnershipPulled
+        - event: OwnershipPushed(indexed address,indexed address)
+          handler: handleOwnershipPushed
+      callHandlers:
+        - function: stake(uint256,address)
+          handler: handleStake
+        - function: unstake(uint256,bool)
+          handler: handleUnstake
+        - function: rebase()
+          handler: rebaseFunction
+      file: OlympusStakingV2\OlympusStakingV2.wasm
+  - kind: ethereum
+    name: OlympusStakingV2Helper
+    network: mainnet
+    source:
+      address: "0x89519c5B10D9249342733c26e1BF9BA022B02CfC"
+      startBlock: 6615053
+      abi: OlympusStakingV2Helper
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OlympusStakingV2Helper
+      abis:
+        - name: OlympusStakingV2
+          file: OlympusStakingV2Helper\abis\OlympusStakingV2.json
+        - name: sOlympusERC20V2
+          file: OlympusStakingV2Helper\abis\sOlympusERC20V2.json
+        - name: OlympusStakingV2Helper
+          file: OlympusStakingV2Helper\abis\OlympusStakingV2Helper.json
+        - name: OlympusERC20
+          file: OlympusStakingV2Helper\abis\OlympusERC20.json
+        - name: CirculatingSupply
+          file: OlympusStakingV2Helper\abis\CirculatingSupply.json
+        - name: BondingCalculator
+          file: OlympusStakingV2Helper\abis\BondingCalculator.json
+        - name: ERC20
+          file: OlympusStakingV2Helper\abis\ERC20.json
+      callHandlers:
+        - function: stake(uint256)
+          handler: handleStake
+      file: OlympusStakingV2Helper\OlympusStakingV2Helper.wasm

@@ -1,16 +1,16 @@
 {
-  "name": "olympus-subgraph",
-  "version": "0.1.0",
-  "scripts": {
-    "codegen": "graph codegen",
-    "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ exodia",
-    "create-local": "graph create --node http://localhost:8020/ exodia",
-    "remove-local": "graph remove --node http://localhost:8020/ exodia",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 exodia"
-  },
-  "dependencies": {
-    "@graphprotocol/graph-cli": "^0.23.2",
-    "@graphprotocol/graph-ts": "^0.23.1"
-  }
+	"name": "twz-beta-subgraph",
+	"version": "0.0.3",
+	"scripts": {
+		"codegen": "graph codegen",
+		"build": "graph build",
+		"auth": "graph auth https://thegraph.kcc.network/deploy/757d7396a7845b56b48323c3d9437a14f846a02b223685e024fb8fa117815236",
+		"create": "graph create twz-beta-v2 --node https://thegraph.kcc.network/deploy/",
+		"deploy": "graph deploy twz-beta-v2 --ipfs https://thegraph.kcc.network/ipfs/ --node https://thegraph.kcc.network/deploy/",
+		"explorer": "https://thegraph.kcc.network/subgraphs/name/twz-beta-v2"
+	},
+	"dependencies": {
+		"@graphprotocol/graph-cli": "0.25.3",
+		"@graphprotocol/graph-ts": "0.24.1"
+	}
 }
